@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alikbachan · One Framework to Diagnose Them All — A Stratified Benchmark for Bengali LLM Hallucination</title>
+<meta name="description" content="Alikbachan (অলীকবচন) is a Bengali hallucination-detection benchmark stratified by cultural distance, task type and a 32-mode taxonomy, tested at community scale with a 222-team competition. Findings of EACL 2027.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="One Framework to Diagnose Them All: A Stratified Benchmark for Bengali LLM Hallucination">
+<meta property="og:description" content="A stratified Bengali hallucination benchmark: 2,516 + 5,000 items, four zero-shot judges, 222 competing teams. Findings of EACL 2027.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/teaser.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23211cbf'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#abstract">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top"><span class="bn">অলীকবচন</span><span>Alikbachan</span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#framework">Framework</a>
+      <a href="#results">Judges</a>
+      <a href="#diagnosis">Diagnosis</a>
+      <a href="#competition">Competition</a>
+      <a href="#data">Data</a>
+      <a href="#cite">Cite</a>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<!-- ============================================================== hero -->
+<div class="hero" id="top">
+  <span class="venue">Findings of EACL 2027</span>
+  <h1>One Framework to Diagnose Them All
+    <span class="sub">A Stratified Benchmark for Bengali LLM Hallucination</span></h1>
+  <p class="wordmark"><b>অলীকবচন</b> &nbsp;·&nbsp; <i style="font-family:var(--serif)">Alikbachan</i>, ‘mirage of language’</p>
+
+  <p class="authors">
+    <span>Asif Shahriyar Sushmit<sup>1*</sup></span>,
+    <span>Shefayat E Shams Adib<sup>2*</sup></span>,
+    <span>Abdullah Al Jubaer Gem<sup>2*</sup></span>,
+    <span>Ahmed Shafin Ruhan<sup>2*</sup></span>,
+    <span>MD. Nazmuddoha Ansary<sup>3*</sup></span>,
+    <span>Biplab Kumar Sarkar<sup>4*</sup></span>,
+    <span>Syed Rifat Raiyan<sup>2*†</sup></span>,
+    <span>Ajwad Abrar<sup>2</sup></span>,
+    <span>Abdullah Bin Hasan<sup>5</sup></span>,
+    <span>Adib Sakhawat<sup>2</sup></span>,
+    <span>M. Sakeef Hossain<sup>2</sup></span>,
+    <span>Ahmed Alfey Sani<sup>2</sup></span>,
+    <span>Arefin Mizan<sup>6</sup></span>,
+    <span>Sourab Chakma<sup>7</sup></span>,
+    <span>Quazi Adibur Rahman Adib<sup>8</sup></span>,
+    <span>Wassie Haque<sup>5</sup></span>,
+    <span>Sanjay Kumar Sen<sup>5</sup></span>,
+    <span>Saad Tahmid<sup>5</sup></span>,
+    <span>Mohammad Mamun Or Rashid<sup>9</sup></span>
+  </p>
+  <p class="affils">
+    <span><sup>1</sup>IEEE</span>
+    <span><sup>2</sup>Islamic University of Technology</span>
+    <span><sup>3</sup>Bengali.AI</span>
+    <span><sup>4</sup>North Dakota State University</span>
+    <span><sup>5</sup>Bangladesh University of Engineering and Technology</span>
+    <span><sup>6</sup>Institute of Policy Dynamics</span>
+    <span><sup>7</sup>Mawlana Bhashani Science and Technology University</span>
+    <span><sup>8</sup>BRAC University</span>
+    <span><sup>9</sup>Jahangirnagar University</span>
+  </p>
+  <p class="notes">* Equal contribution &nbsp;·&nbsp; † Corresponding author: <a href="mailto:rifatraiyan@iut-dhaka.edu">rifatraiyan@iut-dhaka.edu</a></p>
+
+  <div class="actions">
+    <a class="btn primary" href="assets/alikbachan_eacl2027.pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Paper (PDF)</a>
+    <a class="btn" href="https://github.com/sakhadib/alikbachan">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>Code &amp; data</a>
+    <a class="btn" href="https://www.kaggle.com/competitions/bengali-hallucination/overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>Kaggle competition</a>
+    <a class="btn" href="#cite">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5H3v8h4M14 21c3 0 7-1 7-8V5h-7v8h4"/></svg>BibTeX</a>
+  </div>
+</div>
+
+<div class="stats reveal" role="list">
+  <div class="stat" role="listitem"><div class="n">7,516</div><div class="l">items across two independently built phases</div></div>
+  <div class="stat" role="listitem"><div class="n">32</div><div class="l">failure modes in five hallucination families</div></div>
+  <div class="stat" role="listitem"><div class="n">222</div><div class="l">teams and 3,566 submissions in the open competition</div></div>
+  <div class="stat" role="listitem"><div class="n">24 / 25</div><div class="l">teams in both phases score lower on held-out Phase&nbsp;2</div></div>
+</div>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#glance">At a glance</a></li>
+      <li><a href="#framework">The framework</a></li>
+      <li><a href="#results">Zero-shot judges</a></li>
+      <li><a href="#diagnosis">Category-wise diagnosis</a></li>
+      <li><a href="#competition">The competition</a></li>
+      <li><a href="#curation">Curation lessons</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+      <li><a href="#data">Data &amp; evaluation</a></li>
+      <li><a href="#limitations">Limitations &amp; ethics</a></li>
+      <li><a href="#cite">Citation</a></li>
+    </ol>
+  </nav>
+
+<main id="main">
+
+<!-- ============================================================== abstract -->
+<section id="abstract">
+  <div class="prose">
+    <p class="eyebrow">Abstract</p>
+    <p class="abstract">Hallucination research in low-resource languages fragments easily: each newly named failure mode prompts its own dataset, spending scarce annotators on incomparable resources. We argue for consolidation and test it at community scale. <em>Alikbachan</em> is a Bengali hallucination-detection benchmark stratified along three crossed axes: a human-validated cultural-distance band, six task types, and a five-family, 32-mode hallucination taxonomy. It comprises a harvested 2,516-item test set (Phase&nbsp;1) and a quota-constructed, gold-labeled 5,000-item set (Phase&nbsp;2). The stratification is diagnostic. Four zero-shot LLM judges vary by over 30 macro-F1 points across strata, and the item-level predictions of 99 Phase-1 and 32 Phase-2 competition systems reproduce the profile: discourse-level omission defeats judges and most teams alike, whereas only a minority over-flag negative controls. The judges’ verdict probabilities rank items well (ROC-AUC 0.74–0.95) but are overconfident (ECE 0.04–0.29). An open competition on <em>Alikbachan</em> drew 222 teams and 3,566 submissions, and a single-prompt 32B judge reaches the 57th percentile. Of the 25 teams in both phases, 24 regress on Phase&nbsp;2 (mean −17.6 points) while every zero-shot judge improves, and Phase-1 rank barely predicts Phase-2 rank (Spearman ρ&nbsp;=&nbsp;0.35), so a Phase-1 leaderboard alone would have crowned a different winner.</p>
+  </div>
+</section>
+
+<!-- ============================================================== glance -->
+<section id="glance">
+  <div class="prose">
+    <p class="eyebrow">At a glance</p>
+    <h2>A fluent answer is the hardest kind to doubt</h2>
+    <p>In a low-resource language, a fluent answer is both the hardest to doubt and the most expensive to check. A model that writes grammatical, register-appropriate Bengali gives no sign when it misattributes a poem or misdates a war, and few people can verify such claims against primary sources.</p>
+    <p>Asked in Bengali who wrote the poem <i>Bidrohi</i>, a model may name Rabindranath Tagore, the Bengali poet best known abroad, instead of its author, Kazi Nazrul Islam. The answer is grammatical and culturally legible, so nothing on its surface gives it away. Each <em>Alikbachan</em> item carries the metadata that locates such a failure.</p>
+  </div>
+
+  <div class="wide two-uneven reveal">
+    <div class="example" aria-label="A Phase-2 item">
+      <div class="row"><div class="k">Item</div><div class="v"><code>P2-00040</code> &nbsp;<span class="chips" style="display:inline-flex"><span class="chip">Wikipedia &amp; Banglapedia</span><span class="chip">theory-authored</span></span></div></div>
+      <div class="row"><div class="k">Context</div><div class="v"><code>[NULL]</code> <span class="gloss">— judged against world knowledge</span></div></div>
+      <div class="row"><div class="k">Prompt</div><div class="v"><span class="bn" lang="bn">‘বিদ্রোহী’ কবিতাটি কে রচনা করেন?</span><span class="gloss">Who wrote the poem <i>Bidrohi</i> (‘The Rebel’)?</span></div></div>
+      <div class="row"><div class="k">Response</div><div class="v"><span class="bn" lang="bn">‘বিদ্রোহী’ কবিতাটি রচনা করেন রবীন্দ্রনাথ ঠাকুর।</span><span class="gloss">Rabindranath Tagore wrote the poem <i>Bidrohi</i>.</span></div></div>
+      <div class="row"><div class="k">Strata</div><div class="v"><div class="chips"><span class="chip">band C1 · culturally situated</span><span class="chip">short closed-book QA</span><span class="chip">Family A</span><span class="chip bad">cultural-default substitution</span></div></div></div>
+      <div class="row"><div class="k">Gold label</div><div class="v"><span class="verdict">0 · hallucinated</span><br><span class="gloss">The poet is Kazi Nazrul Islam; the response substitutes the more globally famous laureate.</span></div></div>
+    </div>
+    <figure>
+      <img src="assets/img/teaser.svg" width="600" height="600" alt="Figure 1 of the paper: a Phase-2 item, the four judges' scores on all items versus discourse-level omission, and Phase-1 versus Phase-2 scores of teams and judges." loading="lazy" style="display:block;margin:0 auto;max-width:460px;width:100%">
+      <figcaption><b>Figure 1.</b> <i>Alikbachan</i> at a glance, as printed in the paper. (1) the item on the left; (2) the four judges’ macro-F1 on all of Phase&nbsp;2 against discourse-level omission, a blind spot their aggregate scores hide; (3) from Phase&nbsp;1 to Phase&nbsp;2, 24 of 25 teams lose ground while every judge gains. Interactive versions of (2) and (3) follow below.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================== framework -->
+<section id="framework">
+  <div class="prose">
+    <p class="eyebrow">The framework</p>
+    <h2>Consolidation over enumeration</h2>
+    <p class="lead">The usual response to each newly characterized failure is a new benchmark. Under annotation scarcity that is a queue that never clears. We spend the same expert effort on one resource whose axes cut across failure modes, so that a new phenomenon enters as another cell rather than another dataset.</p>
+    <p>A framework built this way has to meet four desiderata:</p>
+    <ol class="contrib">
+      <li><strong>Axes that cut across failure modes.</strong> A new failure becomes a new combination of labels: cultural distance, task type and a hallucination taxonomy.</li>
+      <li><strong>Item-level metadata.</strong> One evaluation run reports where a system fails as well as how well it scores.</li>
+      <li><strong>A second, independently constructed phase.</strong> Overfitting to a public leaderboard becomes visible.</li>
+      <li><strong>An independent audit.</strong> Construction defects are separated from model errors.</li>
+    </ol>
+  </div>
+
+  <figure class="wide reveal">
+    <div class="pipeline" role="img" aria-label="The Alikbachan pipeline: two phases feed a competition and a release, followed by an audit and this paper's analysis.">
+      <div class="pipe-col">
+        <div class="step s1"><h5><i>1</i>Phase 1 · harvest</h5>
+          4 vetted sources (exam and quiz papers, news, an encyclopedia) with LLM or human answers
+          <div class="kv"><b>2,516</b><span>test items</span><b>299</b><span>labeled sample items</span></div></div>
+        <div class="step s2"><h5><i>2</i>Phase 2 · construct under quota</h5>
+          7 Bengali corpora; quotas over 6 tasks, 3 bands, 5 families and 32 modes
+          <div class="kv"><b>3,250</b><span>theory-authored</span><b>1,750</b><span>theory-confirmed</span></div></div>
+      </div>
+      <div class="step s3"><h5><i>3</i>Open competition</h5>
+        <span class="sub">Phase-1 leaderboard</span>
+        <div class="kv"><b>222</b><span>teams</span><b>3,566</b><span>submissions</span></div>
+        <span class="sub" style="display:block;margin-top:.6rem">Phase-2 held-out final</span>
+        <div class="kv"><b>32</b><span>ranked teams</span><b>25</b><span>in both phases</span></div></div>
+      <div class="step s4"><h5><i>4</i>Release</h5>
+        <span class="sub">Phase 1, labels public</span>
+        <div class="kv"><b>2,815</b><span>test + sample</span></div>
+        <span class="sub" style="display:block;margin-top:.6rem">Phase 2, stratified 30 / 70 split</span>
+        <div class="kv"><b>1,500</b><span>public</span><b>3,500</b><span>held out</span></div></div>
+      <div class="step s5"><h5><i>5</i>Independent audit</h5>
+        5 volunteers who built neither phase
+        <div class="kv"><b>500</b><span>items sampled</span><b>4</b><span>evidential states</span><b>0.74</b><span>Fleiss’ κ</span><b>4.8%</b><span>labels overturned</span></div></div>
+      <div class="step s6 last"><h5><i>6</i>This paper</h5>
+        <div class="kv"><b>4</b><span>zero-shot judges</span><b>131</b><span>team runs re-scored</span></div>
+        <span class="sub" style="display:block;margin-top:.6rem">per-stratum readout by band, task, family and mode; curation lessons from the audit</span></div>
+    </div>
+    <figcaption><b>Figure 2.</b> The <i>Alikbachan</i> framework. Two independently sourced phases (1, 2) feed an open competition (3) and a public release (4). An independent audit (5) reviewed a sample of the released items, and the paper (6) analyzes zero-shot judges, the teams’ item-level predictions and the audit.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>The task</h3>
+    <p>Each item is a triple of an optional context <i>c</i> (a passage, or the token <code>[NULL]</code>), a Bengali prompt <i>p</i> and a candidate response <i>r</i>. The task is to predict <i>y</i>&nbsp;∈&nbsp;{0,&nbsp;1}: <strong>1</strong> marks a faithful response and <strong>0</strong> a hallucinated one, with fabricated, unsupported or factually incorrect content. With a null context the response is judged against world knowledge; otherwise it is judged against the context, even where the context deliberately departs from reality.</p>
+
+    <h3>Axis 1 · Cultural-distance bands</h3>
+    <p>The central organizing axis is a three-level, human-validated cultural-distance band. It describes what verification an item needs, and it turns out not to be a monotonic difficulty gradient.</p>
+  </div>
+  <div class="wide cards reveal">
+    <div class="card" style="--c:#1f94cc"><span class="tag">C0 · 750 items</span><h5>Globally stable</h5><p>Culture-independent facts in science, geography or mathematics, such as the boiling point of water. The control band.</p></div>
+    <div class="card" style="--c:#211cbf"><span class="tag">C1 · 3,500 items</span><h5>Culturally situated</h5><p>Answers specific to Bangladesh or differing from a global default: literary authorship, Liberation War dates, monuments, regional administration. Home of fluent but locally wrong output.</p></div>
+    <div class="card" style="--c:#bc45d8"><span class="tag">C2 · 750 items</span><h5>Contested or time-sensitive</h5><p>Current officeholders and revised statistics, where a hallucination must be told apart from outdated knowledge.</p></div>
+  </div>
+
+  <div class="prose">
+    <h3>Axes 2 &amp; 3 · Task types and a 32-mode taxonomy</h3>
+    <p>Phase&nbsp;2 spans six task types: short and long open-book QA (both context-grounded), short closed-book QA, summarization, Bengali–English translation, and adversarial probes built on false premises, prompt injections, counterfactual contexts or instruction constraints. Every Phase-2 item also belongs to one of five hallucination families, which divide into 32 failure modes of 50–400 items each.</p>
+  </div>
+  <div class="wide cards five reveal">
+    <div class="card" style="--c:#211cbf"><span class="tag">Family A</span><h5>Content / parametric</h5><p>Errors in dates, entities or attributions, independent of any context.</p><div class="meta">9 modes · 2,000 items</div></div>
+    <div class="card" style="--c:#1f94cc"><span class="tag">Family B</span><h5>Context / intrinsic</h5><p>Errors that contradict or embellish the given context.</p><div class="meta">5 modes · 1,200 items</div></div>
+    <div class="card" style="--c:#7a4dff"><span class="tag">Family C</span><h5>Linguistic / cultural</h5><p>Errors of Bengali script, register, lexicon or translation.</p><div class="meta">6 modes · 700 items</div></div>
+    <div class="card" style="--c:#bc45d8"><span class="tag">Family D</span><h5>Adversarial / robustness</h5><p>From prompt injection to miscalibration.</p><div class="meta">7 modes · 700 items</div></div>
+    <div class="card" style="--c:#8a8fa0"><span class="tag">Family E</span><h5>Meta / pipeline</h5><p>Ambiguous gold, imperfect sources, encoding variants that a robust judge should see through.</p><div class="meta">5 modes · 400 items</div></div>
+  </div>
+
+  <div class="wide two reveal">
+    <figure class="fig">
+      <div class="fig-head"><span class="fig-title">The taxonomy, sized by items</span></div>
+      <div id="ch-taxonomy" class="chart tall"></div>
+      <figcaption><b>Figure 3.</b> Five families and 32 failure modes of Phase&nbsp;2. Click a family to zoom in; hover for each mode’s share of faithful items.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="fig-head"><span class="fig-title">Phase-2 composition</span>
+        <div class="seg" data-seg="comp" role="group" aria-label="Dimension">
+          <button data-v="task_type" aria-pressed="true">Task</button><button data-v="cultural_band" aria-pressed="false">Band</button><button data-v="source" aria-pressed="false">Source</button><button data-v="provenance" aria-pressed="false">Provenance</button>
+        </div></div>
+      <div id="ch-comp" class="chart tall"></div>
+      <figcaption><b>Figure 4.</b> Every quota was met exactly. The public split keeps each failure mode’s share to within four items of 30%.</figcaption>
+    </figure>
+  </div>
+
+  <div class="prose">
+    <h3>Two phases, one schema</h3>
+    <p><strong>Phase&nbsp;1</strong> harvests short-answer questions from four vetted Bengali sources (two examination and quiz paper collections, a newspaper corpus and an encyclopedia) and pairs them with responses written by LLMs or people. It follows a real question distribution: of its 2,516 test items, 1,361 carry a supporting context and 1,155 are closed-book.</p>
+    <p><strong>Phase&nbsp;2</strong> is built under explicit quotas over six task types, three bands and 32 failure modes, drawing on seven Bengali corpora: Wikipedia and Banglapedia, government publications, newspapers, National Curriculum and Textbook Board texts, Bangladeshi statutes, e-Bangla Library texts and Common Crawl. Of its 5,000 items, 3,250 are theory-authored around a target failure mode and 1,750 are theory-confirmed from real source content.</p>
+    <p><strong>Annotation and audit.</strong> Two separate teams of five undergraduate volunteers built and checked the data. An independent audit team reviewed a random 500 items; three auditors labeled a shared 100-item subset independently (Fleiss’ κ&nbsp;=&nbsp;0.74). The audit found 310 <span class="sc">Supported</span>, 65 <span class="sc">Refuted</span>, 100 <span class="sc">Not Entailed</span> and 25 <span class="sc">Malformed</span> items and overturned 24 of the 500 labels (4.8%).</p>
+  </div>
+</section>
+
+<!-- ============================================================== results -->
+<section id="results">
+  <div class="prose">
+    <p class="eyebrow">Diagnosis in practice</p>
+    <h2>Four zero-shot judges</h2>
+    <p>We evaluate four zero-shot LLM judges spanning about an order of magnitude in scale: <strong>Qwen2.5-32B</strong>, <strong>Gemma-2-9B</strong>, <strong>Llama-3.1-8B</strong> and <strong>TigerLLM-9B-it</strong>, the Bengali-adapted Gemma-2-9B. All four receive the same strict prompt, output one verdict digit and decode greedily. From the log-probabilities of the two verdict tokens we take <i>s</i>&nbsp;=&nbsp;P(1)&nbsp;/&nbsp;(P(1)&nbsp;+&nbsp;P(0)), the judge’s probability that the response is faithful.</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Headline results on both releases</span>
+      <div class="seg" data-seg="headline" role="group" aria-label="Metric">
+        <button data-v="macro_f1" aria-pressed="true">Macro-F1</button><button data-v="acc" aria-pressed="false">Accuracy</button><button data-v="rocauc" aria-pressed="false">ROC-AUC</button><button data-v="ece" aria-pressed="false">ECE</button>
+      </div></div>
+    <div id="ch-headline" class="chart"></div>
+    <figcaption><b>Figure 5.</b> Zero-shot judges against a majority-class reference. Qwen2.5-32B leads on both releases (macro-F1 0.770 and 0.882); Llama-3.1-8B trails but stays above the reference. Switch to ECE to see that every judge is overconfident.</figcaption>
+  </figure>
+
+  <div class="wide table-wrap reveal">
+    <table>
+      <thead>
+        <tr class="group"><th></th><th colspan="4">Verdicts</th><th colspan="4">Probability scores</th></tr>
+        <tr><th>System</th><th class="r">Acc.</th><th class="r">Macro-F1</th><th class="r">F1 hallu.</th><th class="r">F1 faith.</th><th class="r">PR-AUC faith.</th><th class="r">PR-AUC hallu.</th><th class="r">ROC-AUC</th><th class="r">ECE ↓</th></tr>
+      </thead>
+      <tbody id="tbl-headline"></tbody>
+    </table>
+  </div>
+
+  <div class="wide two-uneven reveal">
+    <div>
+      <h3 style="margin-top:0">Ranking is good, confidence is not</h3>
+      <p>Calibration separates the judges more sharply than ranking does. Every judge is overconfident on both releases (ECE 0.042–0.285), so a judge’s stated confidence cannot be read as its probability of being right.</p>
+      <p>Bengali adaptation shows its clearest effect here. TigerLLM-9B-it improves on its base model by only 0.003–0.011 macro-F1, yet cuts ECE from 0.227 to 0.061 on Phase&nbsp;1 and from 0.147 to 0.042 on Phase&nbsp;2.</p>
+    </div>
+    <figure class="fig">
+      <div id="ch-calib" class="chart"></div>
+      <figcaption><b>Figure 6.</b> ROC-AUC against expected calibration error. Hollow markers are Phase&nbsp;1, filled markers Phase&nbsp;2.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================== diagnosis -->
+<section id="diagnosis">
+  <div class="prose">
+    <p class="eyebrow">Category-wise diagnosis</p>
+    <h2>One run, read three ways</h2>
+    <p>Aggregate macro-F1 measures how well a system performs but says nothing about where it fails. Because every Phase-2 item carries a band, a family and a task type, the same evaluation run yields a per-stratum readout at no extra annotation cost.</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Macro-F1 by stratum, Phase 2</span>
+      <div class="seg" data-seg="heat" role="group" aria-label="Stratum">
+        <button data-v="all" aria-pressed="true">All</button><button data-v="band" aria-pressed="false">Band</button><button data-v="family" aria-pressed="false">Family</button><button data-v="task" aria-pressed="false">Task</button>
+      </div></div>
+    <div id="ch-heatmap" class="chart"></div>
+    <figcaption><b>Figure 7.</b> The diagnostic dashboard: each judge’s macro-F1 by cultural band, hallucination family and task type, below its score on all 5,000 items. Darker cells score higher.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <ul class="clean">
+      <li><strong>Cultural distance is not a monotonic gradient.</strong> C0 and C1 are comparable for every judge while C2 is consistently harder (Qwen2.5-32B: 0.93, 0.90, 0.76), which justifies keeping C2 apart from C1.</li>
+      <li><strong>Task type has the strongest, most consistent effect.</strong> Short open-book QA is easiest for every judge (up to 0.98), while closed-book QA and adversarial items are hardest; Llama-3.1-8B falls from 0.82 to 0.43.</li>
+      <li><strong>Judges differ in profile, not only in level.</strong> TigerLLM-9B-it beats its base model where parametric Bengali knowledge matters (Family&nbsp;A, 0.84 vs 0.78) and trails it where the answer must be read from a context (Family&nbsp;B, 0.79 vs 0.88). Their aggregates, 0.840 and 0.829, hide that trade-off.</li>
+    </ul>
+
+    <h3>A blind spot that 36 systems share</h3>
+    <p><em>Discourse-level omission</em>, a summary that silently drops a qualifier, is the hardest mode for the judges (mean macro-F1 0.213) even though it belongs to the easiest family. The judges pass 63–92% of such summaries as faithful, and the median of 32 competition teams misses 59.5% of them. Systems that reliably catch explicit contradictions (judges 0.977) still miss quiet omissions, the error with more consequence in deployment.</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Aggregate scores hide a shared blind spot</span></div>
+    <div id="ch-blind" class="chart short"></div>
+    <figcaption><b>Figure 8.</b> Each judge’s macro-F1 on all of Phase&nbsp;2 (judge colour) and on discourse-level omission (pink). Every judge falls below the per-mode majority reference on omission.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Below the family level: all 32 failure modes</h3>
+    <p>Family averages hide large differences between modes. <em>Negative controls</em>, items built to be unambiguously faithful, are a health check: the judges false-flag 1.0–13.0% of them and the median team 8.2%, but 6 of 32 teams flag more than half. Some modes separate weak judges from strong ones: Llama-3.1-8B nearly matches Qwen2.5-32B on temporal confusion (0.591 vs 0.612) but trails badly on extrapolation with fabricated detail (0.404 vs 1.000).</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Per-mode results, Phase 2</span>
+      <div class="controls">
+        <div class="seg" data-seg="modemetric" role="group" aria-label="Metric">
+          <button data-v="mf1" aria-pressed="true">Macro-F1</button><button data-v="miss" aria-pressed="false">Miss rate</button><button data-v="ff" aria-pressed="false">False flags</button>
+        </div>
+        <div class="seg" data-seg="modesort" role="group" aria-label="Order">
+          <button data-v="family" aria-pressed="true">By family</button><button data-v="mean" aria-pressed="false">By difficulty</button>
+        </div>
+      </div></div>
+    <div id="ch-modes" class="chart xtall"></div>
+    <figcaption><b>Figure 9.</b> Every failure mode, with the four judges and a per-mode majority reference (grey tick). Dot colour in the labels gives the family: <span style="color:#211cbf">● A</span> <span style="color:#1f94cc">● B</span> <span style="color:#7a4dff">● C</span> <span style="color:#bc45d8">● D</span> <span style="color:#8a8fa0">● E</span>. On negative controls all 200 items are faithful, so macro-F1 halves at the first false flag; read the false-flag view for them.</figcaption>
+  </figure>
+
+  <div class="wide table-wrap reveal">
+    <table>
+      <thead>
+        <tr class="group"><th colspan="3"></th><th colspan="2">Δ over majority</th></tr>
+        <tr><th>Failure mode</th><th>Fam.</th><th class="r">Majority</th><th class="r">Judges (mean)</th><th class="r">Teams (mean of 32)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>negative-control</td><td>A</td><td class="r">1.000</td><td class="r">7.3% flagged†</td><td class="r">26.2% flagged†</td></tr>
+        <tr><td>discourse-level-omission</td><td>B</td><td class="r">0.487</td><td class="r loss">−0.274</td><td class="r loss">−0.164</td></tr>
+        <tr class="sep"><td>sociopragmatic-register</td><td>C</td><td class="r">0.394</td><td class="r gain">+0.400</td><td class="r gain">+0.343</td></tr>
+        <tr><td>script-attention-traps</td><td>C</td><td class="r">0.375</td><td class="r gain">+0.428</td><td class="r gain">+0.380</td></tr>
+        <tr><td>reasoning-language-inconsistency</td><td>C</td><td class="r">0.393</td><td class="r gain">+0.431</td><td class="r gain">+0.414</td></tr>
+        <tr><td>direct-contradiction</td><td>B</td><td class="r">0.467</td><td class="r gain">+0.510</td><td class="r gain">+0.307</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:.9rem;color:var(--muted);margin-top:.8rem">Table. Macro-F1 gain over a per-mode majority reference on the two blind-spot candidates (above the rule) and four modes with clear gains. † All negative controls are faithful, so this row gives the mean false-flag rate.</p>
+</section>
+
+<!-- ============================================================== competition -->
+<section id="competition">
+  <div class="prose">
+    <p class="eyebrow">A community-scale competition</p>
+    <h2>222 teams, and a leaderboard that would have crowned the wrong winner</h2>
+    <p>The consolidation argument says one well-stratified framework can concentrate research effort instead of fragmenting it. We test it on the complete submission history of the open competition built on <em>Alikbachan</em>: a Phase-1 leaderboard on the 2,516-item test set, then a Phase-2 round in which the organizers ran invited teams’ offline notebooks once on the 5,000 held-out items.</p>
+    <p>The Phase-1 leaderboard drew <strong>222 teams</strong> (496 participants) and <strong>3,566 submissions</strong> over 19 days. The top score (0.983 macro-F1) appeared on day three: the benchmark proved challenging but attainable.</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Where a single prompt lands among purpose-built systems</span>
+      <div class="seg" data-seg="hist" role="group" aria-label="Phase">
+        <button data-v="p1" aria-pressed="true">Phase 1 · 222 teams</button><button data-v="p2" aria-pressed="false">Phase 2 · 32 teams</button>
+      </div></div>
+    <div id="ch-hist" class="chart"></div>
+    <figcaption><b>Figure 10.</b> Best macro-F1 of each team, with the four zero-shot judges. On Phase&nbsp;1, Qwen2.5-32B reaches the 57th percentile: one prompt to an off-the-shelf model roughly matches the median purpose-built system. The first bar holds every team below 0.6.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>One leaderboard is not enough</h3>
+    <p>Of the 222 Phase-1 teams, 25 also entered Phase&nbsp;2. <strong>Twenty-four of them score lower there</strong>, by a mean of 17.6 macro-F1 points (s.d. 17.7; one-sided Wilcoxon signed-rank <i>p</i>&nbsp;=&nbsp;5.7&nbsp;×&nbsp;10<sup>−7</sup>). The losses are uneven: 12 teams lose less than 0.10, six lose 0.14–0.25, and six collapse from a mean of 0.887 to 0.438.</p>
+    <p>The decline also reorders the field. Phase-1 rank predicts Phase-2 rank only weakly (Spearman ρ&nbsp;=&nbsp;0.35, 95% bootstrap CI [−0.11, 0.70]), and the phases share no winner. The Phase-1 winner falls from 0.983 to 0.812, while the team ranked sixth on Phase&nbsp;1 leads Phase&nbsp;2 (0.954).</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Phase 1 vs Phase 2, the 25 teams in both</span>
+      <div class="seg" data-seg="phases" role="group" aria-label="View">
+        <button data-v="scatter" aria-pressed="true">Scatter</button><button data-v="slope" aria-pressed="false">Slope</button>
+      </div></div>
+    <div id="ch-phases" class="chart tall"></div>
+    <figcaption><b>Figure 11.</b> Every team but one lies below the diagonal (worse on Phase&nbsp;2), and every zero-shot judge lies above it. Hover a point for the team name; darker red means a larger loss.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <div class="callout">
+      <p><strong>Phase 2 is not uniformly harder.</strong> All four zero-shot judges, tuned on neither phase, score 0.10–0.12 macro-F1 <em>higher</em> on Phase&nbsp;2. Its difficulty is specific to systems built against the Phase-1 leaderboard, which makes the decline <i>prima facie</i> evidence of leaderboard overfitting. Phase&nbsp;2 was also scored once, without feedback, and is built differently, so other readings deserve weight.</p>
+    </div>
+
+    <h3>The task-type effect replicates across 99 systems</h3>
+    <p>Re-scoring the item-level predictions of 99 of the top 100 Phase-1 teams, these independently built systems also find context-grounded QA easier than closed-book QA (mean macro-F1 0.913 vs 0.812, with far less variance). Whatever their design, they verify against evidence better than they recall facts. Domains follow the judges too: history, literature and culture is strongest (0.906), Bengali language and lexicon weakest (0.740).</p>
+  </div>
+
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Zero-shot judges on Phase-1 strata</span>
+      <div class="seg" data-seg="p1" role="group" aria-label="Stratum">
+        <button data-v="task" aria-pressed="true">Task</button><button data-v="domain" aria-pressed="false">Domain</button><button data-v="band" aria-pressed="false">Band</button>
+      </div></div>
+    <div id="ch-p1" class="chart"></div>
+    <figcaption><b>Figure 12.</b> Macro-F1 of each judge on Phase-1 strata, with the majority reference. Phase&nbsp;1 repeats the Phase-2 task effect: context-grounded items are far easier than closed-book ones. Band and domain are reconstructed proxies; C2 has only 19 items.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================== curation -->
+<section id="curation">
+  <div class="prose">
+    <p class="eyebrow">Curation lessons</p>
+    <h2>A cautionary tale from the audit</h2>
+    <p>A binary faithful/hallucinated label suits scoring but collapses four evidential states: <span class="sc">Supported</span>, <span class="sc">Refuted</span>, <span class="sc">Not Entailed</span> and <span class="sc">Malformed</span>. The audit recorded the four-way state before projecting it onto the binary label, and its lessons reach beyond <em>Alikbachan</em>.</p>
+    <ul class="clean">
+      <li><strong>Bands define the verification an item needs.</strong> A C0 item can still be malformed by wrong notation, units or polarity; two C2 values can both be right under different reference dates.</li>
+      <li><strong>Most contextual errors break a relation.</strong> They reuse the context’s vocabulary but assign it to the wrong entity, role, date or jurisdiction, which lexical overlap cannot catch. The audit records an <em>answer-slot signature</em> instead.</li>
+      <li><strong>Some apparent hallucinations are construction defects.</strong> A stem that refers to dropped options, or a copied answer key with an upstream error, belongs in a repair queue before evaluation.</li>
+      <li><strong>Linguistic validity belongs in the taxonomy.</strong> Newly found lexical failures became new Family-C cells rather than a separate resource, as consolidation anticipates.</li>
+    </ul>
+  </div>
+  <div class="wide table-wrap reveal">
+    <table class="contract">
+      <thead><tr><th>Layer</th><th>Common pitfall</th><th>Required curator check</th></tr></thead>
+      <tbody>
+        <tr><td>Packaging</td><td>An image, option, table or answer-bearing part is missing from the released row</td><td>Test answerability on the released row itself, not on its source</td></tr>
+        <tr><td>Representation</td><td>OCR, Unicode or math notation admits competing readings</td><td>Keep raw and canonical forms; adjudicate only once one reading is fixed</td></tr>
+        <tr><td>Linguistic validity</td><td>The idiom, register, morphology or lexical relation is ill-formed</td><td>Judge grammaticality, lexical correctness and contextual support separately</td></tr>
+        <tr><td>Question contract</td><td>The answer has the wrong role, entity, place, time, unit or polarity</td><td>Record an answer-slot signature that binds every requested argument</td></tr>
+        <tr><td>Epistemic status</td><td>An estimate is treated as exact, or an unresolved future as fact</td><td>Preserve approximation, modality, authority and temporal scope</td></tr>
+        <tr><td>Reasoning</td><td>Topical overlap stands in for a comparison or composition</td><td>Require a licensed operation and reject the nearest plausible alternative</td></tr>
+        <tr><td>Annotation record</td><td>Response, rationale and label describe different judgments</td><td>Reconcile every field before release; one matching field cannot repair another</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:.9rem;color:var(--muted);margin-top:.8rem">Table. The audit condensed into a seven-layer item contract, ordered by where adjudication should stop: an item that fails one layer cannot be judged on the layers below it.</p>
+</section>
+
+<!-- ============================================================== takeaways -->
+<section id="takeaways">
+  <div class="prose">
+    <p class="eyebrow">Discussion</p>
+    <h2>What practitioners should carry away</h2>
+    <p><strong>Consolidation buys diagnosis as well as economy.</strong> The omission blind spot, the hardness of C2 and TigerLLM-9B-it’s trade-off all surfaced from the same run. Separate single-task benchmarks could approximate this only with compatible labels and schemas, a coordination that is rare in low-resource ecosystems.</p>
+    <p><strong>A leaderboard is a lower bound on what stratification can reveal.</strong> For languages that can afford only one or two benchmark iterations, make the second one stratified and independently built.</p>
+  </div>
+  <div class="wide cards reveal">
+    <div class="card"><span class="tag">Habit 1</span><h5>Report error counts beside macro-F1</h5><p>On near-single-class strata, a single false flag can halve the score.</p></div>
+    <div class="card"><span class="tag">Habit 2</span><h5>Read verdict probabilities as a ranking</h5><p>Until they are calibrated. Every judge we tested is overconfident.</p></div>
+    <div class="card"><span class="tag">Habit 3</span><h5>Test on items the detector never saw</h5><p>Such as the held-out Phase-2 split, before trusting a leaderboard score.</p></div>
+  </div>
+  <div class="prose">
+    <p class="pull">A language with few annotators cannot afford a benchmark for every way a model can fail; it can afford one that shows where each model does.</p>
+  </div>
+</section>
+
+<!-- ============================================================== data -->
+<section id="data">
+  <div class="prose">
+    <p class="eyebrow">Data &amp; evaluation</p>
+    <h2>The release</h2>
+    <p>The data come from the <span class="bn">অলীকবচন</span>: Bengali LLM Hallucination Detection Challenge (Kaggle, Datathon 2.0), organised by IUTCS at IUT, powered by the Institute of Policy Dynamics and sponsored by the EBLICT project. The data are released under <strong>CC BY-NC-SA 4.0</strong>, with the judge scripts and a scorer that reports macro-F1, error rates, ROC-AUC and ECE per stratum.</p>
+  </div>
+  <div class="wide table-wrap reveal">
+    <table>
+      <thead><tr><th>Split</th><th>File</th><th class="r">Items</th><th class="r">% faithful</th><th>Labels</th></tr></thead>
+      <tbody>
+        <tr><td>Phase 1 test</td><td><code>dataset/phase1/test.jsonl</code></td><td class="r">2,516</td><td class="r">53.1</td><td>public</td></tr>
+        <tr><td>Phase 1 sample</td><td><code>dataset/phase1/sample.jsonl</code></td><td class="r">299</td><td class="r">54.5</td><td>public</td></tr>
+        <tr><td>Phase 2 public</td><td><code>dataset/phase2/public.jsonl</code></td><td class="r">1,500</td><td class="r">46.5</td><td>public</td></tr>
+        <tr class="muted"><td>Phase 2 hidden</td><td>not distributed</td><td class="r">3,500</td><td class="r">45.3</td><td>private, contamination-resistant</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h3>What the release offers each detector family</h3>
+    <p>Every item carries <code>context</code>, <code>prompt_bn</code>, <code>response_bn</code> and <code>label</code>. Phase-2 items add <code>task_type</code>, <code>cultural_band</code>, <code>family</code>, <code>failure_mode</code>, <code>provenance</code>, <code>source</code> and an English <code>rationale</code>. At test time a detector should see only the context, prompt and response, since the other fields reveal or correlate with the label.</p>
+  </div>
+  <div class="wide table-wrap reveal">
+    <table>
+      <thead><tr><th>Detector family</th><th>What <i>Alikbachan</i> provides</th></tr></thead>
+      <tbody>
+        <tr><td>Evidence-grounded</td><td><code>context</code> (or <code>[NULL]</code>) and <code>response_bn</code> for every item</td></tr>
+        <tr><td>Self-consistency</td><td><code>prompt_bn</code>; resampling needs a proxy model, as generators are not released</td></tr>
+        <tr><td>Supervised</td><td><code>label</code> on 4,315 public items; strata for splits; <code>rationale</code> as extra supervision</td></tr>
+        <tr><td>Verdict confidence</td><td>Top-20 verdict log-probabilities from the judge scripts</td></tr>
+        <tr><td>White-box likelihood</td><td>Context, prompt and response for teacher forcing</td></tr>
+        <tr><td>Error analysis</td><td>Band, task, family, mode, provenance, source (Phase 2); task type (Phase 1)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h3>A white-box signal falls short</h3>
+    <p>The mean token log-likelihood a judge assigns to a response under teacher forcing separates faithful from hallucinated responses on context-grounded Phase-1 items (AUROC 0.69–0.78), but barely on closed-book items or Phase&nbsp;2 (0.50–0.56), far short of the judges’ verdict scores.</p>
+  </div>
+  <figure class="wide fig reveal">
+    <div class="fig-head"><span class="fig-title">Teacher-forced log-likelihood as a hallucination signal</span></div>
+    <div id="ch-logprob" class="chart"></div>
+    <figcaption><b>Figure 13.</b> AUROC with 95% confidence intervals, by model, phase and whether the item has a context.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>The judge prompt</h3>
+    <details>
+      <summary>System prompt and user template</summary>
+      <p class="prompt-label">System prompt</p>
+<pre>You are a strict binary classifier for Bengali hallucination detection.
+Given a Bengali (context, prompt, response) triple, you must output
+EXACTLY ONE character: the digit 1 or the digit 0. No words, no JSON,
+no explanation, no whitespace, no quotes — just the digit.
+
+OUTPUT 1  if the response is FAITHFUL: it is supported by the context,
+or (when the context is [NULL]) is factually correct.
+OUTPUT 0  if the response is HALLUCINATED: it contains factual errors,
+contradicts the context, or invents information not supported by it.</pre>
+      <p class="prompt-label">User template</p>
+<pre>Context: {context}
+Prompt: {prompt_bn}
+Response: {response_bn}
+
+Label (1 or 0 only):</pre>
+      <p style="margin-top:1rem;font-size:.95rem">The verdict is the first digit 0 or 1 in the output; if there is none, the score thresholded at 0.5. ECE bins the confidence max(<i>s</i>, 1−<i>s</i>) into 15 equal-width bins. The scorer <code>scripts/evaluate.py</code> reports every metric overall and per stratum.</p>
+    </details>
+    <details>
+      <summary>Score your own predictions</summary>
+<pre>git clone https://github.com/sakhadib/alikbachan
+cd alikbachan
+python scripts/evaluate.py --help</pre>
+    </details>
+  </div>
+</section>
+
+<!-- ============================================================== limitations -->
+<section id="limitations">
+  <div class="prose">
+    <p class="eyebrow">Limitations &amp; ethics</p>
+    <h2>What the evidence does and does not show</h2>
+    <details>
+      <summary>Theory-authored items risk confirming their own taxonomy</summary>
+      <p>About two-thirds of Phase&nbsp;2 (3,250 items) are written against target failure modes and labeled by construction, so the taxonomy partly shapes the evidence used to evaluate it. The 1,750 theory-confirmed items and the taxonomy-blind competition systems limit this circularity without removing it.</p>
+    </details>
+    <details>
+      <summary>The audit checked a sample</summary>
+      <p>The audit overturned 24 of 500 sampled labels (4.8%): the released labels largely hold, but some residual noise should be expected. Both teams were undergraduate volunteers, and one annotation team built both phases. The Phase-1 C2 band is small (19 of 2,516), so the finding that C2 is the hardest band rests on the Phase-2 gold labels (750 items).</p>
+    </details>
+    <details>
+      <summary>Scope of the empirical evidence</summary>
+      <p>One zero-shot configuration per model, with no prompt sweep, no fine-tuned detector and no frontier closed model. Item-level predictions were available for 32 of 222 teams and for 99 of the top 100, all selected on Phase-1 score. Only 1,500 of the 5,000 Phase-2 items are public, so third parties cannot yet reproduce full-set numbers. Anyone re-scoring third-party predictions should first rule out polarity errors (1 = faithful).</p>
+    </details>
+    <details>
+      <summary>The generalization gap admits other readings</summary>
+      <p>Phase&nbsp;2 was organizer-scored on a held-out fold and differs from Phase&nbsp;1 in construction, task mix and label balance (53.1% vs 45.7% faithful). With 25 teams we do not claim to have isolated overfitting as the cause.</p>
+    </details>
+    <details>
+      <summary>Ethical considerations</summary>
+      <p>Items are built from public Bangladeshi sources and name public figures only in their public roles; the audit removed items whose falsehoods targeted individuals or groups. The benchmark necessarily contains fabricated Bengali text, adversarial probes and prompt injections, so generators should not be trained on its hallucinated responses without filtering. Annotators and auditors were unpaid undergraduate volunteers, and competitors took part voluntarily under published terms.</p>
+      <p>The C1 band surfaces a representational harm, the overwriting of locally correct knowledge by globally dominant defaults, and should be read as an equity signal as well as a metric. A strong aggregate score alone does not license deploying a detector as a safety filter for Bengali generation.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============================================================== cite -->
+<section id="cite">
+  <div class="prose">
+    <p class="eyebrow">Citation</p>
+    <h2>BibTeX</h2>
+    <div class="codebox">
+      <button class="copy" data-target="bibtex" type="button">Copy</button>
+<pre id="bibtex">@inproceedings{sushmit2027alikbachan,
+  title     = {One Framework to Diagnose Them All: A Stratified
+               Benchmark for {B}engali {LLM} Hallucination},
+  author    = {Sushmit, Asif Shahriyar and Adib, Shefayat E Shams and
+               Gem, Abdullah Al Jubaer and Ruhan, Ahmed Shafin and
+               Ansary, MD. Nazmuddoha and Sarkar, Biplab Kumar and
+               Raiyan, Syed Rifat and Abrar, Ajwad and Hasan, Abdullah Bin and
+               Sakhawat, Adib and Hossain, M. Sakeef and Sani, Ahmed Alfey and
+               Mizan, Arefin and Chakma, Sourab and Adib, Quazi Adibur Rahman and
+               Haque, Wassie and Sen, Sanjay Kumar and Tahmid, Saad and
+               Rashid, Mohammad Mamun Or},
+  booktitle = {Findings of the Association for Computational Linguistics: EACL 2027},
+  year      = {2027}
+}</pre>
+    </div>
+    <h3>Acknowledgments</h3>
+    <p>We thank the volunteers who annotated and audited <em>Alikbachan</em> for their care with every item, every team that took part in the competition, and the competition’s organizers and sponsor, without whom its submission history would not exist.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="foot">
+    <div>
+      <strong style="color:var(--ink)"><span class="bn">অলীকবচন</span> · Alikbachan</strong><br>
+      A stratified benchmark for Bengali LLM hallucination. Data under CC BY-NC-SA 4.0.<br>
+      Built on the <span class="bn">অলীকবচন</span> challenge, organised by IUTCS at Islamic University of Technology, powered by the Institute of Policy Dynamics and sponsored by EBLICT.
+    </div>
+    <div>
+      <a href="assets/alikbachan_eacl2027.pdf">Paper (PDF)</a><br>
+      <a href="https://github.com/sakhadib/alikbachan">GitHub repository</a><br>
+      <a href="https://www.kaggle.com/competitions/bengali-hallucination/overview">Kaggle competition</a><br>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/vendor/plotly.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/tables.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
