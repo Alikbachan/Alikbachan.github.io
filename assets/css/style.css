@@ -47,7 +47,7 @@
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --bn: "Noto Serif Bengali", var(--serif);
 
-  --measure: 42rem;      /* reading column */
+  --measure: 68rem;      /* reading column: same as --wide so text and figures share both edges */
   --wide: 68rem;         /* figures and tables */
   --fs: 1.125rem;
 }
@@ -160,6 +160,7 @@ figure { margin: 0; }
 .fig-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1.2rem; margin-bottom: .6rem; }
 .fig-title { font-family: var(--sans); font-weight: 600; font-size: .95rem; color: var(--ink); }
 figcaption { font-size: .95rem; line-height: 1.6; color: var(--ink-2); margin-top: 1rem; max-width: var(--measure); }
+.wide figcaption { max-width: none; } /* captions span the full width of wide figures */
 figcaption b { font-family: var(--sans); font-size: .85rem; font-weight: 600; color: var(--ink); margin-right: .3rem; }
 .chart { width: 100%; height: 420px; }
 .chart.tall { height: 560px; }
@@ -181,12 +182,12 @@ figcaption b { font-family: var(--sans); font-size: .85rem; font-weight: 600; co
 .controls { display: flex; flex-wrap: wrap; gap: .6rem; }
 
 /* ------------------------------------------------------------------ pipeline */
-.pipeline { display: grid; grid-template-columns: 1.15fr 1fr 1fr 1fr 1fr; gap: .9rem; align-items: stretch; counter-reset: step; }
-.pipe-col { display: grid; gap: .9rem; }
-.step { position: relative; border: 1px solid var(--rule-2); border-radius: 12px; padding: 1rem 1rem .9rem; background: #fff; font-family: var(--sans); font-size: .82rem; line-height: 1.5; color: var(--ink-2); }
+.pipeline { display: grid; grid-template-columns: 1.15fr 1fr 1fr 1fr 1fr; gap: .75rem; align-items: center; counter-reset: step; }
+.pipe-col { display: grid; gap: .75rem; }
+.step { position: relative; border: 1px solid var(--rule-2); border-radius: 12px; padding: .9rem .8rem .8rem; background: #fff; font-family: var(--sans); font-size: .82rem; line-height: 1.5; color: var(--ink-2); }
 .step h5 { margin: 0 0 .6rem; font-size: .84rem; font-weight: 600; color: var(--ink); display: flex; gap: .5rem; align-items: center; }
 .step h5 i { font-style: normal; display: inline-grid; place-items: center; width: 1.45rem; height: 1.45rem; border-radius: 50%; background: var(--c, var(--accent)); color: #fff; font-size: .74rem; flex: none; }
-.step .kv { display: grid; grid-template-columns: auto 1fr; gap: .1rem .55rem; align-items: baseline; margin-top: .45rem; }
+.step .kv { display: grid; grid-template-columns: 3.1em 1fr; gap: .1rem .45rem; align-items: baseline; margin-top: .45rem; }
 .step .kv b { font-weight: 600; color: var(--c, var(--accent)); font-size: 1.02rem; text-align: right; font-feature-settings: "tnum"; }
 .step .sub { color: var(--muted); font-size: .78rem; }
 .step.s1 { --c: #1f94cc; background: linear-gradient(#fff, #f3fbff); }
@@ -195,15 +196,17 @@ figcaption b { font-family: var(--sans); font-size: .85rem; font-weight: 600; co
 .step.s4 { --c: #6e65ce; }
 .step.s5 { --c: #bc45d8; }
 .step.s6 { --c: #211cbf; }
-.step::after { content: ""; position: absolute; right: -.75rem; top: 50%; width: .55rem; height: .55rem; border-top: 1.5px solid var(--faint); border-right: 1.5px solid var(--faint); transform: translateY(-50%) rotate(45deg); }
+.step::after { content: ""; position: absolute; right: -.62rem; top: 50%; width: .55rem; height: .55rem; border-top: 1.5px solid var(--faint); border-right: 1.5px solid var(--faint); transform: translateY(-50%) rotate(45deg); }
 .step.last::after, .pipe-col .step:first-child::after { display: none; }
-.pipe-col .step:last-child::after { top: 0; }
-@media (max-width: 1000px) {
-  .pipeline { grid-template-columns: 1fr 1fr; }
+.pipe-col .step:last-child::after { top: -.375rem; } /* middle of the Phase 1/2 stack */
+/* reflow on the figure's own width (the sidebar narrows it on laptops), not the viewport's */
+figure:has(> .pipeline) { container-type: inline-size; }
+@container (max-width: 860px) {
+  .pipeline { grid-template-columns: 1fr 1fr; align-items: stretch; }
   .pipe-col { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
   .step::after { display: none; }
 }
-@media (max-width: 560px) { .pipeline, .pipe-col { grid-template-columns: 1fr; } }
+@container (max-width: 540px) { .pipeline, .pipe-col { grid-template-columns: 1fr; } }
 
 /* ------------------------------------------------------------------ worked example */
 .example { border: 1px solid var(--rule-2); border-radius: 14px; overflow: hidden; background: #fff; }

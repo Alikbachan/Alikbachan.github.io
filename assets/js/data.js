@@ -858,6 +858,16 @@ window.ALIK = {
    "p2": 0.901
   },
   {
+   "team": "Team ReActive",
+   "p1": 0.978,
+   "p2": 0.924
+  },
+  {
+   "team": "Xiao Maow",
+   "p1": 0.977,
+   "p2": 0.739
+  },
+  {
    "team": "BUET_NeuralX",
    "p1": 0.962,
    "p2": 0.954
@@ -883,6 +893,11 @@ window.ALIK = {
    "p2": 0.603
   },
   {
+   "team": "Straw Hat",
+   "p1": 0.93,
+   "p2": 0.804
+  },
+  {
    "team": "sudo_rm_-rf",
    "p1": 0.93,
    "p2": 0.71
@@ -901,6 +916,11 @@ window.ALIK = {
    "team": "CUET cURL-marx",
    "p1": 0.926,
    "p2": 0.673
+  },
+  {
+   "team": "JD Crew",
+   "p1": 0.926,
+   "p2": 0.867
   },
   {
    "team": "4ier",
@@ -933,9 +953,19 @@ window.ALIK = {
    "p2": 0.704
   },
   {
+   "team": "hawkeye",
+   "p1": 0.903,
+   "p2": 0.838
+  },
+  {
    "team": "The Hallucinators",
    "p1": 0.902,
    "p2": 0.749
+  },
+  {
+   "team": "DU_RDANTO",
+   "p1": 0.898,
+   "p2": 0.921
   },
   {
    "team": "wrongCha",
@@ -963,6 +993,11 @@ window.ALIK = {
    "p2": 0.902
   },
   {
+   "team": "Make America Great Again",
+   "p1": 0.848,
+   "p2": 0.515
+  },
+  {
    "team": "GTA8",
    "p1": 0.837,
    "p2": 0.429
@@ -977,22 +1012,22 @@ window.ALIK = {
   {
    "judge": "Qwen2.5-32B",
    "f1": 0.77,
-   "pct": 57.3
+   "pct": 57.2
   },
   {
    "judge": "Gemma-2-9B",
    "f1": 0.731,
-   "pct": 40.7
+   "pct": 40.1
   },
   {
    "judge": "Llama-3.1-8B",
    "f1": 0.557,
-   "pct": 8.1
+   "pct": 5.0
   },
   {
    "judge": "TigerLLM-9B-it",
    "f1": 0.734,
-   "pct": 42.0
+   "pct": 41.4
   }
  ],
  "tiers": [
@@ -1198,6 +1233,50 @@ window.ALIK = {
    "auroc": 0.503,
    "auroc_lo": 0.48,
    "auroc_hi": 0.53
+  },
+  {
+   "release": "phase1",
+   "model": "TigerLLM-9B-it",
+   "context": "with",
+   "d": 0.791,
+   "d_lo": 0.67,
+   "d_hi": 0.91,
+   "auroc": 0.733,
+   "auroc_lo": 0.7,
+   "auroc_hi": 0.76
+  },
+  {
+   "release": "phase1",
+   "model": "TigerLLM-9B-it",
+   "context": "without",
+   "d": 0.194,
+   "d_lo": 0.08,
+   "d_hi": 0.32,
+   "auroc": 0.561,
+   "auroc_lo": 0.53,
+   "auroc_hi": 0.59
+  },
+  {
+   "release": "phase2",
+   "model": "TigerLLM-9B-it",
+   "context": "with",
+   "d": 0.187,
+   "d_lo": 0.11,
+   "d_hi": 0.27,
+   "auroc": 0.552,
+   "auroc_lo": 0.53,
+   "auroc_hi": 0.57
+  },
+  {
+   "release": "phase2",
+   "model": "TigerLLM-9B-it",
+   "context": "without",
+   "d": 0.11,
+   "d_lo": 0.04,
+   "d_hi": 0.18,
+   "auroc": 0.532,
+   "auroc_lo": 0.51,
+   "auroc_hi": 0.55
   }
  ],
  "split": [

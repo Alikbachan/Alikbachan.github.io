@@ -74,7 +74,7 @@
   <p class="notes">* Equal contribution &nbsp;·&nbsp; † Corresponding author: <a href="mailto:rifatraiyan@iut-dhaka.edu">rifatraiyan@iut-dhaka.edu</a></p>
 
   <div class="actions">
-    <a class="btn primary" href="assets/alikbachan_eacl2027.pdf">
+    <a class="btn primary" href="https://arxiv.org/pdf/2611.26336">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Paper (PDF)</a>
     <a class="btn" href="https://github.com/Alikbachan/Alikbachan">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>Code &amp; data</a>
@@ -93,7 +93,7 @@
   <div class="stat" role="listitem"><div class="n">7,516</div><div class="l">items across two independently built phases</div></div>
   <div class="stat" role="listitem"><div class="n">32</div><div class="l">failure modes in five hallucination families</div></div>
   <div class="stat" role="listitem"><div class="n">222</div><div class="l">teams and 3,566 submissions in the open competition</div></div>
-  <div class="stat" role="listitem"><div class="n">24 / 25</div><div class="l">teams in both phases score lower on held-out Phase&nbsp;2</div></div>
+  <div class="stat" role="listitem"><div class="n">30 / 32</div><div class="l">teams in both phases score lower on held-out Phase&nbsp;2</div></div>
 </div>
 
 <div class="layout">
@@ -120,7 +120,7 @@
 <section id="abstract">
   <div class="prose">
     <p class="eyebrow">Abstract</p>
-    <p class="abstract">Hallucination research in low-resource languages fragments easily: each newly named failure mode prompts its own dataset, spending scarce annotators on incomparable resources. We argue for consolidation and test it at community scale. <em>Alikbachan</em> is a Bengali hallucination-detection benchmark stratified along three crossed axes: a human-validated cultural-distance band, six task types, and a five-family, 32-mode hallucination taxonomy. It comprises a harvested 2,516-item test set (Phase&nbsp;1) and a quota-constructed, gold-labeled 5,000-item set (Phase&nbsp;2). The stratification is diagnostic. Four zero-shot LLM judges vary by over 30 macro-F1 points across strata, and the item-level predictions of 99 Phase-1 and 32 Phase-2 competition systems reproduce the profile: discourse-level omission defeats judges and most teams alike, whereas only a minority over-flag negative controls. The judges’ verdict probabilities rank items well (ROC-AUC 0.74–0.95) but are overconfident (ECE 0.04–0.29). An open competition on <em>Alikbachan</em> drew 222 teams and 3,566 submissions, and a single-prompt 32B judge reaches the 57th percentile. Of the 25 teams in both phases, 24 regress on Phase&nbsp;2 (mean −17.6 points) while every zero-shot judge improves, and Phase-1 rank barely predicts Phase-2 rank (Spearman ρ&nbsp;=&nbsp;0.35), so a Phase-1 leaderboard alone would have crowned a different winner.</p>
+    <p class="abstract">Hallucination research in low-resource languages fragments easily: each newly named failure mode prompts its own dataset, spending scarce annotators on incomparable resources. We argue for consolidation and test it at community scale. <em>Alikbachan</em> is a Bengali hallucination-detection benchmark stratified along three crossed axes: a human-validated cultural-distance band, six task types, and a five-family, 32-mode hallucination taxonomy. It comprises a harvested 2,516-item test set (Phase&nbsp;1) and a quota-constructed, gold-labeled 5,000-item set (Phase&nbsp;2). The stratification is diagnostic. Four zero-shot LLM judges vary by over 30 macro-F1 points across strata, and the item-level predictions of 99 Phase-1 and 32 Phase-2 competition systems reproduce the profile: discourse-level omission defeats judges and most teams alike, whereas only a minority over-flag negative controls. The judges’ verdict probabilities rank items well (ROC-AUC 0.74–0.95) but are overconfident (ECE 0.04–0.29). An open competition on <em>Alikbachan</em> drew 222 teams and 3,566 submissions, and a single-prompt 32B judge reaches the 57th percentile. Of the 32 teams in both phases, 30 regress on Phase&nbsp;2 (mean −16.4 points) while every zero-shot judge improves, and Phase-1 rank barely predicts Phase-2 rank (Spearman ρ&nbsp;=&nbsp;0.33), so a Phase-1 leaderboard alone would have crowned a different winner.</p>
   </div>
 </section>
 
@@ -144,7 +144,7 @@
     </div>
     <figure>
       <img src="assets/img/teaser.svg" width="600" height="600" alt="Figure 1 of the paper: a Phase-2 item, the four judges' scores on all items versus discourse-level omission, and Phase-1 versus Phase-2 scores of teams and judges." loading="lazy" style="display:block;margin:0 auto;max-width:460px;width:100%">
-      <figcaption><b>Figure 1.</b> <i>Alikbachan</i> at a glance, as printed in the paper. (1) the item on the left; (2) the four judges’ macro-F1 on all of Phase&nbsp;2 against discourse-level omission, a blind spot their aggregate scores hide; (3) from Phase&nbsp;1 to Phase&nbsp;2, 24 of 25 teams lose ground while every judge gains. Interactive versions of (2) and (3) follow below.</figcaption>
+      <figcaption><b>Figure 1.</b> <i>Alikbachan</i> at a glance, as printed in the paper. (1) the item on the left; (2) the four judges’ macro-F1 on all of Phase&nbsp;2 against discourse-level omission, a blind spot their aggregate scores hide; (3) from Phase&nbsp;1 to Phase&nbsp;2, 30 of 32 teams lose ground while every judge gains. Interactive versions of (2) and (3) follow below.</figcaption>
     </figure>
   </div>
 </section>
@@ -169,7 +169,7 @@
       <div class="pipe-col">
         <div class="step s1"><h5><i>1</i>Phase 1 · harvest</h5>
           4 vetted sources (exam and quiz papers, news, an encyclopedia) with LLM or human answers
-          <div class="kv"><b>2,516</b><span>test items</span><b>299</b><span>labeled sample items</span></div></div>
+          <div class="kv"><b>2,516</b><span>test items</span><b>299</b><span>sample items</span></div></div>
         <div class="step s2"><h5><i>2</i>Phase 2 · construct under quota</h5>
           7 Bengali corpora; quotas over 6 tasks, 3 bands, 5 families and 32 modes
           <div class="kv"><b>3,250</b><span>theory-authored</span><b>1,750</b><span>theory-confirmed</span></div></div>
@@ -178,17 +178,18 @@
         <span class="sub">Phase-1 leaderboard</span>
         <div class="kv"><b>222</b><span>teams</span><b>3,566</b><span>submissions</span></div>
         <span class="sub" style="display:block;margin-top:.6rem">Phase-2 held-out final</span>
-        <div class="kv"><b>32</b><span>ranked teams</span><b>25</b><span>in both phases</span></div></div>
+        <div class="kv"><b>32</b><span>in both phases</span></div></div>
       <div class="step s4"><h5><i>4</i>Release</h5>
         <span class="sub">Phase 1, labels public</span>
         <div class="kv"><b>2,815</b><span>test + sample</span></div>
-        <span class="sub" style="display:block;margin-top:.6rem">Phase 2, stratified 30 / 70 split</span>
-        <div class="kv"><b>1,500</b><span>public</span><b>3,500</b><span>held out</span></div></div>
+        <span class="sub" style="display:block;margin-top:.6rem">Phase 2, stratified split</span>
+        <div class="kv"><b>1,500</b><span>public</span><b>3,500</b><span>held out</span></div>
+        <span class="sub" style="display:block;margin-top:.6rem">500-item hard split kept for the competition</span></div>
       <div class="step s5"><h5><i>5</i>Independent audit</h5>
         5 volunteers who built neither phase
-        <div class="kv"><b>500</b><span>items sampled</span><b>4</b><span>evidential states</span><b>0.74</b><span>Fleiss’ κ</span><b>4.8%</b><span>labels overturned</span></div></div>
+        <div class="kv"><b>500</b><span>items sampled</span><b>4</b><span>evidential states</span><b>0.74</b><span>Fleiss’ κ</span><b>4.8%</b><span>overturned</span></div></div>
       <div class="step s6 last"><h5><i>6</i>This paper</h5>
-        <div class="kv"><b>4</b><span>zero-shot judges</span><b>131</b><span>team runs re-scored</span></div>
+        <div class="kv"><b>4</b><span>zero-shot judges</span><b>131</b><span>runs re-scored</span></div>
         <span class="sub" style="display:block;margin-top:.6rem">per-stratum readout by band, task, family and mode; curation lessons from the audit</span></div>
     </div>
     <figcaption><b>Figure 2.</b> The <i>Alikbachan</i> framework. Two independently sourced phases (1, 2) feed an open competition (3) and a public release (4). An independent audit (5) reviewed a sample of the released items, and the paper (6) analyzes zero-shot judges, the teams’ item-level predictions and the audit.</figcaption>
@@ -375,17 +376,17 @@
 
   <div class="prose">
     <h3>One leaderboard is not enough</h3>
-    <p>Of the 222 Phase-1 teams, 25 also entered Phase&nbsp;2. <strong>Twenty-four of them score lower there</strong>, by a mean of 17.6 macro-F1 points (s.d. 17.7; one-sided Wilcoxon signed-rank <i>p</i>&nbsp;=&nbsp;5.7&nbsp;×&nbsp;10<sup>−7</sup>). The losses are uneven: 12 teams lose less than 0.10, six lose 0.14–0.25, and six collapse from a mean of 0.887 to 0.438.</p>
-    <p>The decline also reorders the field. Phase-1 rank predicts Phase-2 rank only weakly (Spearman ρ&nbsp;=&nbsp;0.35, 95% bootstrap CI [−0.11, 0.70]), and the phases share no winner. The Phase-1 winner falls from 0.983 to 0.812, while the team ranked sixth on Phase&nbsp;1 leads Phase&nbsp;2 (0.954).</p>
+    <p>All 32 Phase-2 teams had also competed in Phase&nbsp;1. <strong>Thirty of them score lower there</strong>, by a mean of 16.4 macro-F1 points (s.d. 16.6; one-sided Wilcoxon signed-rank <i>p</i>&nbsp;=&nbsp;2.6&nbsp;×&nbsp;10<sup>−8</sup>). The losses are uneven: 15 teams lose less than 0.10, eight lose 0.13–0.25, and seven collapse from a mean of 0.882 to 0.449.</p>
+    <p>The decline also reorders the field. Phase-1 rank predicts Phase-2 rank only weakly (Spearman ρ&nbsp;=&nbsp;0.33, 95% bootstrap CI [−0.08, 0.64]), and the phases share no winner and only two of their top five teams. The team with the best Phase-1 score falls from 0.983 to 0.812, while the team with the sixth-best (0.962) leads Phase&nbsp;2 (0.954), and two teams improve (+0.023 and +0.030). The Phase-2 spread is wide, with 6 teams below 0.60 macro-F1 and 7 at 0.90 or above.</p>
   </div>
 
   <figure class="wide fig reveal">
-    <div class="fig-head"><span class="fig-title">Phase 1 vs Phase 2, the 25 teams in both</span>
+    <div class="fig-head"><span class="fig-title">Phase 1 vs Phase 2, the 32 teams in both</span>
       <div class="seg" data-seg="phases" role="group" aria-label="View">
         <button data-v="scatter" aria-pressed="true">Scatter</button><button data-v="slope" aria-pressed="false">Slope</button>
       </div></div>
     <div id="ch-phases" class="chart tall"></div>
-    <figcaption><b>Figure 11.</b> Every team but one lies below the diagonal (worse on Phase&nbsp;2), and every zero-shot judge lies above it. Hover a point for the team name; darker red means a larger loss.</figcaption>
+    <figcaption><b>Figure 11.</b> All but two teams lie below the diagonal (worse on Phase&nbsp;2), and every zero-shot judge lies above it. Hover a point for the team name; darker red means a larger loss.</figcaption>
   </figure>
 
   <div class="prose">
@@ -460,7 +461,7 @@
   <div class="prose">
     <p class="eyebrow">Data &amp; evaluation</p>
     <h2>The release</h2>
-    <p>The data come from the <span class="bn">অলীকবচন</span>: Bengali LLM Hallucination Detection Challenge (Kaggle, Datathon 2.0), organised by IUTCS at IUT, powered by the Institute of Policy Dynamics and sponsored by the EBLICT project. The data are released under <strong>CC BY-NC-SA 4.0</strong>, with the judge scripts and a scorer that reports macro-F1, error rates, ROC-AUC and ECE per stratum.</p>
+    <p>The data come from the <span class="bn">অলীকবচন</span>: Bengali LLM Hallucination Detection Challenge (Kaggle, Datathon 2.0), organised by IUTCS at IUT, powered by the Institute of Policy Dynamics and sponsored by the EBLICT project. Phase&nbsp;2 is split 30/70 into a public set of 1,500 items and 3,500 items held out as a contamination-resistant test set; a further 500-item hard split was used only in the competition. The data are released under <strong>CC BY-NC-SA 4.0</strong>, with the judge scripts and a scorer that reports macro-F1, error rates, ROC-AUC and ECE per stratum.</p>
     <div class="callout"><p><strong>Where to find it.</strong> The data, judge scripts and scorer live in <a href="https://github.com/Alikbachan/Alikbachan"><code>Alikbachan/Alikbachan</code></a> on GitHub, and the released splits are also on the <a href="https://huggingface.co/datasets/Alikbachan/Alikbachan">Hugging Face Hub</a>. The <a href="https://github.com/Alikbachan">Alikbachan</a> organization on GitHub also hosts the project’s other experimental repositories.</p></div>
   </div>
   <div class="wide table-wrap reveal">
@@ -477,7 +478,7 @@
 
   <div class="prose">
     <h3>What the release offers each detector family</h3>
-    <p>Every item carries <code>context</code>, <code>prompt_bn</code>, <code>response_bn</code> and <code>label</code>. Phase-2 items add <code>task_type</code>, <code>cultural_band</code>, <code>family</code>, <code>failure_mode</code>, <code>provenance</code>, <code>source</code> and an English <code>rationale</code>. At test time a detector should see only the context, prompt and response, since the other fields reveal or correlate with the label.</p>
+    <p>Every item carries <code>context</code>, <code>prompt_bn</code>, <code>response_bn</code> and <code>label</code>. Phase-1 items add <code>task_type</code>, and Phase-2 items add <code>task_type</code>, <code>cultural_band</code>, <code>family</code>, <code>failure_mode</code>, <code>provenance</code>, <code>source</code> and an English <code>rationale</code>. At test time a detector should see only the context, prompt and response, since the other fields reveal or correlate with the label.</p>
   </div>
   <div class="wide table-wrap reveal">
     <table>
@@ -552,11 +553,11 @@ ds = load_dataset("Alikbachan/Alikbachan")</pre>
     </details>
     <details>
       <summary>Scope of the empirical evidence</summary>
-      <p>One zero-shot configuration per model, with no prompt sweep, no fine-tuned detector and no frontier closed model. Item-level predictions were available for 32 of 222 teams and for 99 of the top 100, all selected on Phase-1 score. Only 1,500 of the 5,000 Phase-2 items are public, so third parties cannot yet reproduce full-set numbers. Anyone re-scoring third-party predictions should first rule out polarity errors (1 = faithful).</p>
+      <p>One zero-shot configuration per model, with no prompt sweep and no fine-tuned detector. Item-level predictions were available for 32 of 222 teams and for 99 of the top 100, all selected on Phase-1 score. Only 1,500 of the 5,000 Phase-2 items are public, so third parties cannot yet reproduce full-set numbers. Anyone re-scoring third-party predictions should first rule out polarity errors (1 = faithful).</p>
     </details>
     <details>
       <summary>The generalization gap admits other readings</summary>
-      <p>Phase&nbsp;2 was organizer-scored on a held-out fold and differs from Phase&nbsp;1 in construction, task mix and label balance (53.1% vs 45.7% faithful). With 25 teams we do not claim to have isolated overfitting as the cause.</p>
+      <p>Phase&nbsp;2 was organizer-scored on a held-out fold and differs from Phase&nbsp;1 in construction, task mix and label balance (53.1% vs 45.7% faithful). With 32 teams we do not claim to have isolated overfitting as the cause.</p>
     </details>
     <details>
       <summary>Ethical considerations</summary>
@@ -585,9 +586,15 @@ ds = load_dataset("Alikbachan/Alikbachan")</pre>
                Haque, Wassie and Sen, Sanjay Kumar and Tahmid, Saad and
                Rashid, Mohammad Mamun Or},
   booktitle = {Findings of the Association for Computational Linguistics: EACL 2027},
-  year      = {2027}
+  year      = {2027},
+  eprint    = {2611.26336},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url       = {https://arxiv.org/pdf/2611.26336},
+  note      = {Project page: https://alikbachan.github.io/}
 }</pre>
     </div>
+    <p>Paper: <a href="https://arxiv.org/pdf/2611.26336">arXiv:2611.26336 (PDF)</a> · Project page: <a href="https://alikbachan.github.io/">alikbachan.github.io</a>.</p>
     <h3>Acknowledgments</h3>
     <p>We thank the volunteers who annotated and audited <em>Alikbachan</em> for their care with every item, every team that took part in the competition, and the competition’s organizers and sponsor, without whom its submission history would not exist.</p>
   </div>
@@ -604,7 +611,7 @@ ds = load_dataset("Alikbachan/Alikbachan")</pre>
       Built on the <span class="bn">অলীকবচন</span> challenge, organised by IUTCS at Islamic University of Technology, powered by the Institute of Policy Dynamics and sponsored by EBLICT.
     </div>
     <div>
-      <a href="assets/alikbachan_eacl2027.pdf">Paper (PDF)</a><br>
+      <a href="https://arxiv.org/pdf/2611.26336">Paper (PDF)</a><br>
       <a href="https://github.com/Alikbachan/Alikbachan">Code &amp; data</a><br>
       <a href="https://huggingface.co/datasets/Alikbachan/Alikbachan">Hugging Face dataset</a><br>
       <a href="https://github.com/Alikbachan">Alikbachan on GitHub (experimental repos)</a><br>

@@ -224,10 +224,10 @@
   let phaseView = "scatter";
   function phases() {
     const T = A.overlap, tr = [];
-    const flag = { ExtremeAI: "Phase-1 winner", BUET_NeuralX: "Phase-2 leader", DU_Outliers: "only team to improve" };
+    const flag = { ExtremeAI: "best Phase-1 score", BUET_NeuralX: "Phase-2 leader", DU_Outliers: "one of two teams to improve" };
     if (phaseView === "scatter") {
       tr.push({ type: "scatter", mode: "lines", x: [0.3, 1], y: [0.3, 1], line: { color: FAINT, dash: "dot", width: 1.3 }, hoverinfo: "skip", showlegend: false });
-      tr.push({ type: "scatter", mode: "markers", name: "25 teams in both phases", x: T.map((t) => t.p1), y: T.map((t) => t.p2),
+      tr.push({ type: "scatter", mode: "markers", name: "32 teams in both phases", x: T.map((t) => t.p1), y: T.map((t) => t.p2),
         marker: { size: 11, color: T.map((t) => (t.p2 > t.p1 ? "#15803d" : hexA("#c2410c", 0.15 + 0.85 * Math.min(1, (t.p1 - t.p2) / 0.6)))), line: { color: "#fff", width: 1 } },
         customdata: T.map((t) => [t.team, ((t.p2 - t.p1) * 100).toFixed(1)]),
         hovertemplate: "<b>%{customdata[0]}</b><br>Phase 1 %{x:.3f} → Phase 2 %{y:.3f}<br>Δ %{customdata[1]} pts<extra></extra>" });
@@ -304,7 +304,7 @@
 
   /* ---------------------------------------------------------------- 11. log-prob AUROC */
   function logprob() {
-    const models = ["Qwen2.5-32B", "Gemma-2-9B", "Llama-3.1-8B", "Gemma-4-12B"];
+    const models = ["Qwen2.5-32B", "Gemma-2-9B", "Llama-3.1-8B", "TigerLLM-9B-it", "Gemma-4-12B"];
     const SER = [["phase1", "with", "Phase 1 · with context", "#211cbf", "circle"], ["phase1", "without", "Phase 1 · closed-book", "#9194e4", "circle-open"],
       ["phase2", "with", "Phase 2 · with context", "#bc45d8", "diamond"], ["phase2", "without", "Phase 2 · closed-book", "#ec8dff", "diamond-open"]];
     const tr = SER.map(([rel, ctx, name, c, sym], k) => {
